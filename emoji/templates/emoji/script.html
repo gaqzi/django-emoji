@@ -1,0 +1,10 @@
+{% load url from future %}
+{% load static %}
+
+<script src="{% static 'libs/lodash/lodash-1.2.1.js' %}"></script>
+<script src="{% static 'emoji/js/emoji.js' %}"></script>
+<script>
+if($) {
+    Emoji.setDataUrl('{% url 'emoji:list.json' %}').load();
+}
+</script>

@@ -1,11 +1,13 @@
 import json
 
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, NoReverseMatch
 from django.test import TestCase
 
 from . import Emoji as EmojiInstance
 from .models import Emoji
 
+# Anyone know how to mock out so os.listdir only lists what I want
+# instead of hitting the file system?
 TOTAL_EMOJIS = 885
 
 
@@ -67,3 +69,36 @@ class EmojiListViewTest(TestCase):
         items = json.loads(res.content)
         self.assertEqual(len(items), TOTAL_EMOJIS)
         self.assertEqual(items['+1'], '/static/emoji/img/%2B1.png')
+
+
+class EmojiTemplateTagTest(TestCase):
+    def test_emoji_replace_tag(self):
+        try:
+            res = self.client.get(reverse('emoji_test_list'), {'limit': 1})
+        except NoReverseMatch:
+            return
+
+        self.assertEqual(res.status_code, 200)
+        self.assertTrue('<img src="/static/emoji/img/relaxed.png" '
+                        'alt="relaxed" class="emoji">' in res.content)
+
+    def test_emoji_include_script(self):
+        try:
+            res = self.client.get(reverse('emoji_include_test'))
+        except NoReverseMatch:
+            return
+
+        self.assertEqual(res.status_code, 200)
+        body = res.content
+        self.assertTrue('/static/libs/lodash/lodash-1.2.1.js' in body,
+                        'lodash')
+        self.assertTrue('/static/emoji/js/emoji.js' in body, 'emoji.js')
+
+    def test_emoji_load_tag(self):
+        try:
+            res = self.client.get(reverse('emoji_load_test'))
+        except NoReverseMatch:
+            pass
+
+        self.assertEqual(res.status_code, 200)
+        self.assertTrue("Emoji.setDataUrl('/all.json').load();" in res.content)

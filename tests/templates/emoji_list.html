@@ -1,0 +1,4 @@
+{% load emoji_tags %}
+{% for emoji in emojis %}
+{{ emoji|emoji_replace }} ({{ emoji }})
+{% endfor %}

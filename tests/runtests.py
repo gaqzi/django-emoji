@@ -1,3 +1,4 @@
+import os
 import sys
 from django.conf import settings
 
@@ -18,6 +19,7 @@ settings.configure(
         'emoji',
     ),
     STATIC_URL='/static/',
+    TEMPLATE_DIRS=(os.path.join(os.path.dirname(__file__), 'templates'),)
 )
 
 from django.test.simple import DjangoTestSuiteRunner
