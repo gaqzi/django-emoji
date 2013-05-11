@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url
 
-from .views import EmojiListView
+from .views import EmojiJSONListView
 
 urlpatterns = patterns('',
-    url(r'^all.json$', EmojiListView.as_view(), name='list'),
+    url(r'^all.json$', EmojiJSONListView.as_view(), name='list.json'),
 )
