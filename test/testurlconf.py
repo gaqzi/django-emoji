@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
 
-from tests.views import EmojiTestReplaceTagView
+from test.views import EmojiTestReplaceTagView
 
 urlpatterns = patterns('',
     url(r'', include('emoji.urls', app_name='emoji', namespace='emoji')),

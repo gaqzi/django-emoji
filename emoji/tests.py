@@ -61,9 +61,9 @@ class EmojiTest(TestCase):
             as_dict['nonexistant']
 
 
-class EmojiListViewTest(TestCase):
+class EmojiJSONListViewTest(TestCase):
     def test_should_return_json_list(self):
-        res = self.client.get(reverse('emoji:list'))
+        res = self.client.get(reverse('emoji:list.json'))
         self.assertEqual(res.status_code, 200)
 
         items = json.loads(res.content)
@@ -90,8 +90,6 @@ class EmojiTemplateTagTest(TestCase):
 
         self.assertEqual(res.status_code, 200)
         body = res.content
-        self.assertTrue('/static/libs/lodash/lodash-1.2.1.js' in body,
-                        'lodash')
         self.assertTrue('/static/emoji/js/emoji.js' in body, 'emoji.js')
 
     def test_emoji_load_tag(self):
