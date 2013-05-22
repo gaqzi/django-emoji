@@ -79,8 +79,8 @@ class EmojiTemplateTagTest(TestCase):
             return
 
         self.assertEqual(res.status_code, 200)
-        self.assertTrue('<img src="/static/emoji/img/relaxed.png" '
-                        'alt="relaxed" class="emoji">' in res.content)
+        self.assertTrue('<img src="/static/emoji/img/%2B1.png" '
+                        'alt="+1" class="emoji">' in res.content)
 
     def test_emoji_include_script(self):
         try:

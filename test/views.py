@@ -11,8 +11,8 @@ class EmojiTestReplaceTagView(TemplateView):
         limit = int(self.request.GET.get('limit', 0))
         emojis = []
 
-        for i, emoji in enumerate(Emoji.keys()):
-            if limit and i > limit: break
+        for i, emoji in enumerate(sorted(Emoji.keys())):
+            if limit and i >= limit: break
             emojis.append(':{0}:'.format(emoji))
 
         context['emojis'] = emojis
