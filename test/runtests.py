@@ -22,8 +22,8 @@ settings.configure(
     TEMPLATE_DIRS=(os.path.join(os.path.dirname(__file__), 'templates'),)
 )
 
-from django.test.simple import DjangoTestSuiteRunner
-test_runner = DjangoTestSuiteRunner(verbosity=1)
+from django_nose import NoseTestSuiteRunner
+test_runner = NoseTestSuiteRunner()
 failures = test_runner.run_tests(['emoji', ])
 if failures:
     sys.exit(failures)
