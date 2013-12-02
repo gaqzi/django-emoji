@@ -14,7 +14,7 @@ setup(
     license='BSD License',
     description='A simple django app to use emojis on your website',
     long_description=README,
-    url='https://github.com/gaqzi/django-emojis/',
+    url='https://github.com/gaqzi/django-emoji/',
     author='Björn Andersson',
     author_email='ba@sanitarium.se',
     install_requires=[
