@@ -6,6 +6,9 @@ Emoji is a port of the GitHub gem `gemoji`_ to Django.
 
 It'll try to replace items between :: with emojis, for instance ``: dog :`` (without the spaces) will become an emoji of a dog (:dog:).
 
+.. image:: https://travis-ci.org/gaqzi/django-emoji.png
+           :target: https://travis-ci.org/gaqzi/django-emoji
+
 .. _gemoji: https://github.com/github/gemoji
 
 Quick start
