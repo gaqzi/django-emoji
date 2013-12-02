@@ -11,18 +11,24 @@ It'll try to replace items between :: with emojis, for instance ``: dog :`` (wit
 Quick start
 -----------
 
-1. Add "emoji" to your INSTALLED_APPS setting like this::
+1. Install `django-emoji`_ from PyPi::
+
+      pip install django-emoji
+
+.. _django-emoji: https://pypi.python.org/pypi/django-emoji
+
+2. Add "emoji" to your INSTALLED_APPS setting like this::
 
       INSTALLED_APPS = (
           ...
           'emoji',
       )
 
-2. Include the emoji URLconf in your project urls.py like this if you want to be able to get a JSON list of emojis::
+3. Include the emoji URLconf in your project urls.py like this if you want to be able to get a JSON list of emojis::
 
       url(r'^emoji/', include('emoji.urls')),
 
-3. Visit http://127.0.0.1:8000/emoji/ to get a json object with all emojis avilable
+4. Visit http://127.0.0.1:8000/emoji/all.json to get a json object with all emojis avilable
 
 Usage
 -----

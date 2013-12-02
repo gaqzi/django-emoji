@@ -31,3 +31,6 @@ coverage-py-html:
 
 clean:
 	find . -name '*.pyc' | xargs rm -f
+
+upload-package: test
+	python setup.py sdist upload

@@ -17,6 +17,9 @@ setup(
     url='https://github.com/gaqzi/django-emojis/',
     author='Björn Andersson',
     author_email='ba@sanitarium.se',
+    install_requires=[
+        'django',
+    ],
     classifiers=[
         'Environment :: Web Environment',
         'Framework :: Django',
