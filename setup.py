@@ -1,6 +1,6 @@
 # encoding: utf-8
 import os
-from setuptools import setup
+from setuptools import setup, find_packages
 
 README = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
 
@@ -8,8 +8,8 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-emoji',
-    version='1.0',
-    packages=['emoji'],
+    version='1.1.0-rc1',
+    packages=find_packages(exclude=('test',)),
     include_package_data=True,
     license='BSD License',
     description='A simple django app to use emojis on your website',
