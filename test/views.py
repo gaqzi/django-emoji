@@ -12,8 +12,21 @@ class EmojiTestReplaceTagView(TemplateView):
         emojis = []
 
         for i, emoji in enumerate(sorted(Emoji.keys())):
-            if limit and i >= limit: break
+            if limit and i >= limit:
+                break
             emojis.append(':{0}:'.format(emoji))
 
         context['emojis'] = emojis
+        return context
+
+
+class EmojiTestReplcaceUnicodeTagView(TemplateView):
+    template_name = 'emoji_replace_unicode.html'
+
+    def get_context_data(self, **kwargs):
+        context = (super(EmojiTestReplcaceUnicodeTagView, self)
+                   .get_context_data(**kwargs))
+
+        context['emoji'] = u'\U0001f48b'
+
         return context

@@ -40,6 +40,7 @@ Replace an emoji using Python templates by loading the tags in your template::
 
       {% load emoji_tags %}
       blog_post.body|emoji_replace
+      blog_post.body|emoji_replace_unicode
 
 Replace emojis using Javascript (to for instance show a preview before the user saves what it is they are writing)::
 
@@ -70,3 +71,30 @@ Usage from inside Python where the Emoji class mimics some of the behavior of a 
       'dog' in Emoji # => True
       Emoji.keys() # => a list of all emojis by name
       Emoji.replace("It's raining :cats: and :dogs:") # => It's raining <img src="..." alt="cats" class="emoji"> and <img src="..." alt="dogs" class="emoji">
+
+
+Replacing unicode Emojis
+------------------------
+
+Emoji has the ability to give you the name of an emoji from a unicode
+character. It can also replace every instance of emoji characters in a
+string with their image replacements.
+
+Usage::
+
+      >>> from emoji import Emoji
+      >>> Emoji.name_for(u'\U000148b')
+      kiss
+      >>> Emoji.replace_unicode(u'I send a \U0001f48b!')
+      I send a <img src="/static/emoji/img/kiss.png" alt="kiss" class="emoji">
+
+Note
+~~~~
+
+To be able to use the unicode replacements your Python version needs
+to be built with wide unicode character support. This seems to be the
+case for most standard Python available from your package manager. If
+you do not have that an exception will be raised::
+
+      >>> print(unichr(0x0001f48b))
+      ValueError: unichr() arg not in range(0x10000) (narrow Python build)

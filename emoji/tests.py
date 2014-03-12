@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+
+from __future__ import unicode_literals
 import json
 
 from django.core.urlresolvers import reverse, NoReverseMatch
@@ -8,7 +11,8 @@ from .models import Emoji
 
 # Anyone know how to mock out so os.listdir only lists what I want
 # instead of hitting the file system?
-TOTAL_EMOJIS = 885
+TOTAL_EMOJIS = 889
+TOTAL_EMOJIS_UNICODE = 838
 
 
 class EmojiTest(TestCase):
@@ -79,8 +83,18 @@ class EmojiTemplateTagTest(TestCase):
             return
 
         self.assertEqual(res.status_code, 200)
-        self.assertTrue('<img src="/static/emoji/img/%2B1.png" '
-                        'alt="+1" class="emoji">' in res.content)
+        self.assertIn('<img src="/static/emoji/img/%2B1.png" '
+                      'alt="+1" class="emoji">', res.content)
+
+    def test_emoji_replace_unicode_tag(self):
+        try:
+            res = self.client.get(reverse('emoji_replace_unicode_test'))
+        except NoReverseMatch:
+            return
+
+        self.assertEqual(res.status_code, 200)
+        self.assertIn('<img src="/static/emoji/img/kiss.png" '
+                      'alt="kiss" class="emoji">', res.content)
 
     def test_emoji_include_script(self):
         try:
@@ -100,3 +114,44 @@ class EmojiTemplateTagTest(TestCase):
 
         self.assertEqual(res.status_code, 200)
         self.assertTrue("Emoji.setDataUrl('/all.json').load();" in res.content)
+
+
+class EmojiUnicodeTest(TestCase):
+    # :kiss: filename 1f48b.png, chosen 'cause it prints properly in terminal
+    UNICODE_KISS = '\U0001f48b'
+    UNICODE_KISS_CHARACTER = '💋'
+
+    def test_should_also_store_the_unicode_of_an_emoji(self):
+        self.assertEqual(len(Emoji._unicode_characters), TOTAL_EMOJIS_UNICODE)
+
+    def test_should_be_able_to_look_up_unicode(self):
+        self.assertEqual(Emoji.name_for(self.UNICODE_KISS), 'kiss')
+        self.assertEqual(Emoji.name_for(self.UNICODE_KISS_CHARACTER), 'kiss')
+
+    def test_replace_unicode_in_string_with_images(self):
+        self.assertIn(
+            'kiss.png',
+            Emoji.replace_unicode('I send a {0}!'.format(self.UNICODE_KISS)),
+        )
+
+    def test_emojis_that_were_showing_wrong(self):
+        # These emojis were showing other images than the ones intended.
+        emoji = '🍆'
+        self.assertEqual(Emoji.name_for(emoji), 'eggplant')
+
+        emoji = '😘'
+        self.assertEqual(Emoji.name_for(emoji), 'kissing_heart')
+
+    def test_remove_unicode_control_from_name_for(self):
+        # fe0f is a control character that modifies the character
+        # before, but we already do that modification so it's just
+        # unecessary.
+        emoji = '✌️'
+        self.assertEqual(Emoji.name_for(emoji), 'v')
+
+    def test_remove_unicode_control_from_replace_unicode(self):
+        emoji = '✌️'
+        self.assertEqual(
+            Emoji.replace_unicode(emoji),
+            '<img src="/static/emoji/img/v.png" alt="v" class="emoji">'
+        )
