@@ -4,7 +4,10 @@ django-emoji
 
 Emoji is a port of the GitHub gem `gemoji`_ to Django.
 
-It'll try to replace items between :: with emojis, for instance ``: dog :`` (without the spaces) will become an emoji of a dog (:dog:).
+This app got two main use cases:
+
+1. It'll try to replace items between :: with emojis, for instance ``: dog :`` (without the spaces) will become an emoji of a dog (:dog:).
+2. It'll try to replace unicode characters with emojis, for instance '✌️' with a victory symbol (:v:).
 
 .. image:: https://travis-ci.org/gaqzi/django-emoji.png?branch=master
            :target: https://travis-ci.org/gaqzi/django-emoji
@@ -34,13 +37,54 @@ Quick start
 4. Visit http://127.0.0.1:8000/emoji/all.json to get a json object with all emojis avilable
 
 Usage
------
+=====
+
+API
+----
+
+Python
+------
+
+The Python class ``Emoji`` is a singleton and will return the same
+instance between instantiations. On load Emoji will load the name of
+all the emjis and their unicode equivalents into memory.
+
+============================================= ===============================
+               Call                                  Description
+============================================= ===============================
+``Emoji.names()``                             A list of all known emojis
+``Emoji.replace(replacement_string)``         Replaces all emojies between ``::``
+``Emoji.name_for(character)``                 The name for a given unicode character
+``Emoji.replace_unicode(replacement_string)`` Replaces all known unicode emojies
+============================================= ===============================
+
+Javascript
+----------
+
+The browser version caches all the emojies in ``localStorage`` so
+there won't be that many roundtrips to the server just to get a list
+of the emojies.
+
+**NOTE**: Depends on jQuery or some other library that exports ``$.get``.
+
+==================================== ========================================
+               Call                                  Description
+==================================== ========================================
+``Emoji.setDataUrl(url)``            Where to fetch the list of all available emojis
+``Emoji.load()``                     Load all emojis from the server
+``Emoji.get(/*emoji*/)``             Get the URL to an emoji of a name or return the names of all known emojis
+``Emoji.replace(replacementString)`` Replace all ``::`` style emojis with images
+``Emoji.clear()``                    Empty the browser cache
+==================================== ========================================
+
+Examples
+--------
 
 Replace an emoji using Python templates by loading the tags in your template::
 
       {% load emoji_tags %}
-      blog_post.body|emoji_replace
-      blog_post.body|emoji_replace_unicode
+      {{ blog_post.body|emoji_replace }}
+      {{ blog_post.body|emoji_replace_unicode }}
 
 Replace emojis using Javascript (to for instance show a preview before the user saves what it is they are writing)::
 
@@ -88,13 +132,12 @@ Usage::
       >>> Emoji.replace_unicode(u'I send a \U0001f48b!')
       I send a <img src="/static/emoji/img/kiss.png" alt="kiss" class="emoji">
 
-Note
-~~~~
+**Note**:
 
 To be able to use the unicode replacements your Python version needs
 to be built with wide unicode character support. This seems to be the
-case for most standard Python available from your package manager. If
-you do not have that an exception will be raised::
+case for most Pythons available from package managers. If you do not
+have wide character support then an exception will be raised::
 
       >>> print(unichr(0x0001f48b))
       ValueError: unichr() arg not in range(0x10000) (narrow Python build)

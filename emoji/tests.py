@@ -11,7 +11,7 @@ from .models import Emoji
 
 # Anyone know how to mock out so os.listdir only lists what I want
 # instead of hitting the file system?
-TOTAL_EMOJIS = 889
+TOTAL_EMOJIS = 888
 TOTAL_EMOJIS_UNICODE = 838
 
 

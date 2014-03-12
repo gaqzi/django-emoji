@@ -65,16 +65,6 @@ class Emoji(object):
         if item in self._files:
             return self._static_url(item)
 
-    @classmethod
-    def names(cls):
-        """A list of all emoji names without file extension."""
-        if not cls._files:
-            for f in os.listdir(cls._image_path):
-                if os.path.isfile(os.path.join(cls._image_path, f)):
-                    cls._files.append(os.path.splitext(f)[0])
-
-        return cls._files
-
     def _static_url(self, name):
         return staticfiles_storage.url(
             '{0}/{1}.png'.format(self._static_path, name)
@@ -85,6 +75,17 @@ class Emoji(object):
             self._static_url(filename),
             ' '.join(filename.split('_'))
         )
+
+    @classmethod
+    def names(cls):
+        """A list of all emoji names without file extension."""
+        if not cls._files:
+            for f in os.listdir(cls._image_path):
+                if(not f.startswith('.') and
+                   os.path.isfile(os.path.join(cls._image_path, f))):
+                    cls._files.append(os.path.splitext(f)[0])
+
+        return cls._files
 
     @classmethod
     def replace(cls, replacement_string):
