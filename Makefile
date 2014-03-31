@@ -1,4 +1,5 @@
-PHANTOMJS=$(CURDIR)/node_modules/.bin/mocha-phantomjs
+KARMA=$(CURDIR)/node_modules/karma/bin/karma
+BOWER=$(CURDIR)/node_modules/.bin/bower
 
 .PHONY : test clean test-py test-js coverage coverage-py coverage-js coverage-py-html default
 
@@ -8,12 +9,15 @@ test-py:
 	python test/runtests.py
 
 test-js: node_modules
-	$(PHANTOMJS) -R tap test/tests.html
+	$(KARMA) start test/karma.conf.js --single-run \
+		--reporters dots --browsers PhantomJS
 
 test: test-js test-py
 
-node_modules: package.json
+node_modules: package.json test/bower.json
 	npm install
+	cd test && \
+		$(BOWER) install --config.interactive=false
 
 coverage: coverage-js coverage-py
 

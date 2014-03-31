@@ -34,3 +34,5 @@ coverage.xml
 
 node_modules
 *.log
+
+bower_components

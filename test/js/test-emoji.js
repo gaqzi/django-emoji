@@ -14,7 +14,7 @@ describe('Emoji', function() {
 
   describe('#setDataUrl', function() {
     it('should set the data url and return self', function() {
-      expect(Emoji.setDataUrl('whatever')).to.be(Emoji);
+      expect(Emoji.setDataUrl('whatever')).toBe(Emoji);
     });
   });
 
@@ -30,12 +30,18 @@ describe('Emoji', function() {
     });
 
     it('should load from dataUrl if set and no data given', function() {
-      var mock = sinon.mock($);
-      mock.expects('get').once().returns({"horray": "horray.png"});
-      Emoji.setDataUrl('whatever').load();
+      jasmine.Ajax.useMock();
 
-      mock.verify();
-      mock.restore();
+      Emoji.setDataUrl('whatever').load();
+      var request = mostRecentAjaxRequest();
+      request.response({
+        status: 200,
+        type: 'application/json',
+        responseText: '{"horray": "horray.png"}'
+      });
+
+      expect(request.method).toBe('GET');
+      expect(request.url).toBe('whatever');
     });
 
     it('should load from localStorage if emojis exists', function() {
@@ -43,7 +49,7 @@ describe('Emoji', function() {
       localStorage.setItem('emoji-version', Emoji.version());
       Emoji.load();
 
-      expect(Emoji.get('Hello')).to.be('Hello.png');
+      expect(Emoji.get('Hello')).toBe('Hello.png');
     });
 
     it('should only load localStorage when emoji-version matches', function() {
@@ -51,7 +57,7 @@ describe('Emoji', function() {
       localStorage.setItem('emoji-version', -1);
       Emoji.load();
 
-      expect(Emoji.get('Hello')).to.be(undefined);
+      expect(Emoji.get('Hello')).toBe(undefined);
     });
   });
 
@@ -61,18 +67,18 @@ describe('Emoji', function() {
     });
 
     it('should return the url for an existing emoji', function() {
-      expect(Emoji.get('wine_glass')).to.be('/static/emoji/img/wine_glass.png');
+      expect(Emoji.get('wine_glass')).toBe('/static/emoji/img/wine_glass.png');
     });
 
     it('should return undefined for a nonexisting emoji', function() {
-      expect(Emoji.get('nonexistant_emoji')).to.be(undefined);
+      expect(Emoji.get('nonexistant_emoji')).toBe(undefined);
     });
 
     it('if no argument passed return all emoji names', function() {
       var keys = [];
       for(var k in emojis) keys.push(k);
 
-      expect(Emoji.get()).to.eql(keys);
+      expect(Emoji.get()).toEqual(keys);
     });
   });
 
@@ -82,26 +88,26 @@ describe('Emoji', function() {
     });
 
     it('should return a string with no emojis unchanged', function() {
-      expect(Emoji.replace('Hello.')).to.be('Hello.');
+      expect(Emoji.replace('Hello.')).toBe('Hello.');
     });
 
     it('should return an existing emoji replaced to HTML', function() {
       expect(Emoji.replace(':wine_glass:'))
-        .to.be('<img src="/static/emoji/img/wine_glass.png" '
-               + 'alt="wine glass" class="emoji">');
+        .toBe('<img src="/static/emoji/img/wine_glass.png" ' +
+              'alt="wine glass" class="emoji">');
     });
 
     it('should return several replaced emojis with HTML', function() {
-      expect(Emoji.replace("Oh my it's late :clock830:, better ride my "
-                           + ":water_buffalo: home."))
-        .to.be('Oh my it\'s late <img src="/static/emoji/img/clock830.png" '
-               + 'alt="clock830" class="emoji">, better ride my '
-               + '<img src="/static/emoji/img/water_buffalo.png" '
-               + 'alt="water buffalo" class="emoji"> home.');
+      expect(Emoji.replace("Oh my it's late :clock830:, better ride my " +
+                           ":water_buffalo: home."))
+        .toBe('Oh my it\'s late <img src="/static/emoji/img/clock830.png" ' +
+              'alt="clock830" class="emoji">, better ride my ' +
+              '<img src="/static/emoji/img/water_buffalo.png" ' +
+              'alt="water buffalo" class="emoji"> home.');
     });
 
     it('should do nothing with an invalid emoji', function() {
-      expect(Emoji.replace(':takeiohmy:')).to.be(':takeiohmy:');
+      expect(Emoji.replace(':takeiohmy:')).toBe(':takeiohmy:');
     });
   });
 
@@ -113,9 +119,9 @@ describe('Emoji', function() {
 
       Emoji.clear();
 
-      expect(localStorage.getItem('emojis')).to.be(null);
-      expect(localStorage.getItem('emoji-version')).to.be(null);
-      expect(Emoji.dataUrl()).to.be(null);
+      expect(localStorage.getItem('emojis')).toBe(null);
+      expect(localStorage.getItem('emoji-version')).toBe(null);
+      expect(Emoji.dataUrl()).toBe(null);
     });
   });
 });
