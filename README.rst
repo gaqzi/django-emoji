@@ -2,15 +2,23 @@
 django-emoji
 ============
 
+.. image:: https://travis-ci.org/gaqzi/django-emoji.png?branch=master
+           :target: https://travis-ci.org/gaqzi/django-emoji
+
+.. image:: https://pypip.in/version/django-emoji/badge.png
+    :target: https://pypi.python.org/pypi/django-emoji/
+    :alt: Latest Version
+
+.. image:: https://pypip.in/download/django-emoji/badge.png
+    :target: https://pypi.python.org/pypi/django-emoji/
+    :alt: Downloads
+
 Emoji is a port of the GitHub gem `gemoji`_ to Django.
 
 This app got two main use cases:
 
 1. It'll try to replace items between :: with emojis, for instance ``: dog :`` (without the spaces) will become an emoji of a dog (:dog:).
 2. It'll try to replace unicode characters with emojis, for instance '✌️' with a victory symbol (:v:).
-
-.. image:: https://travis-ci.org/gaqzi/django-emoji.png?branch=master
-           :target: https://travis-ci.org/gaqzi/django-emoji
 
 .. _gemoji: https://github.com/github/gemoji
 
