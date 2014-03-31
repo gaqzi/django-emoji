@@ -1,7 +1,7 @@
 (function(ns) {
 var EMOJIS = {},
     REGEXP = /:([a-z0-9\+\-_]+):/gi,
-    DATA_URL = undefined,
+    DATA_URL = null,
     // Used for keeping track if we should re-load emojis from backend
     EMOJI_VERSION = '1';
 
@@ -65,15 +65,16 @@ ns.Emoji = {
       var url = that.get(emoji);
       if(!url) return x;
 
-      return '<img src="'+ url +'" '
-                + 'alt="'+ emoji.split('_').join(' ') +'" '
-                + 'class="emoji">';
+      return '<img src="'+ url +'" ' +
+                'alt="'+ emoji.split('_').join(' ') +'" ' +
+                'class="emoji">';
     });
   },
   clear: function() {
     localStorage.removeItem('emojis');
     localStorage.removeItem('emoji-version');
-    EMOJIS = {}, DATA_URL = null;
+    EMOJIS = {};
+    DATA_URL = null;
   }
 };
 
