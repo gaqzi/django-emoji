@@ -145,7 +145,10 @@ class Emoji(object):
 
             name = e.name_for(character)
             if name:
-                character = e._image_string(name, alt=character)
+                if settings.EMOJI_ALT_AS_UNICODE:
+                    character = e._image_string(name, alt=character)
+                else:
+                    character = e._image_string(name)
 
             output.append(character)
 
