@@ -134,7 +134,7 @@ class Emoji(object):
                 prev = character
                 continue
             
-            character = prev+character if prev else character
+            character = prev + character if prev else character
             prev = None
             
             name = e.name_for(character)
