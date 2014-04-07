@@ -8,6 +8,8 @@ try:
 except ImportError as exc:
     UNICODE_ALIAS = {}
 
+from . import settings
+
 __all__ = ('Emoji',)
 
 
@@ -73,7 +75,7 @@ class Emoji(object):
     def _image_string(self, filename, alt=None):
         title = ' '.join(filename.split('_'))
 
-        return u'<img src="{0}" alt="{1}" title="{2}" class="emoji">'.format(
+        return settings.EMOJI_IMG_TAG.format(
             self._static_url(filename),
             alt or title,
             title,
