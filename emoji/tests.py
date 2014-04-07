@@ -95,7 +95,7 @@ class EmojiTemplateTagTest(TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertIn((u'<img src="/static/emoji/img/kiss.png" '
                       + u'alt="💋" class="emoji" '
-                      + u'draggable="false">'), res.content)
+                      + u'draggable="false">'), res.content.decode('utf-8'))
 
     def test_emoji_include_script(self):
         try:
