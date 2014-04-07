@@ -116,10 +116,26 @@ class Emoji(object):
         e = cls()
         output = []
 
+        def repl(m):
+            int_val = int(m.group(1))
+            hex_val = hex(int_val)
+            s = (r'\U' + hex_val.replace('0x','000')).decode('unicode-escape')
+            return s
+
+        replacement_string = re.sub( r"&#([0-9]+);", repl, replacement_string)
+        prev = None
+
         for i, character in enumerate(replacement_string):
             if character in cls._unicode_modifiers:
                 continue
 
+            if ord(character) == 55357:
+                prev = character
+                continue
+            
+            character = prev+character if prev else character
+            prev = None
+            
             name = e.name_for(character)
             if name:
                 character = e._image_string(name, character)
