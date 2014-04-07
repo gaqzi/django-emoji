@@ -93,8 +93,9 @@ class EmojiTemplateTagTest(TestCase):
             return
 
         self.assertEqual(res.status_code, 200)
-        self.assertIn('<img src="/static/emoji/img/kiss.png" '
-                      'alt="kiss" class="emoji">', res.content)
+        self.assertIn((u'<img src="/static/emoji/img/kiss.png" '
+                      + u'alt="💋" class="emoji" '
+                      + u'draggable="false">'), res.content)
 
     def test_emoji_include_script(self):
         try:
@@ -153,5 +154,5 @@ class EmojiUnicodeTest(TestCase):
         emoji = '✌️'
         self.assertEqual(
             Emoji.replace_unicode(emoji),
-            '<img src="/static/emoji/img/v.png" alt="v" class="emoji">'
+            '<img src="/static/emoji/img/v.png" alt="✌" class="emoji" draggable="false">'
         )

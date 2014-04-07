@@ -74,7 +74,7 @@ class Emoji(object):
         img_str = u'<img src="{0}" alt="{1}" class="emoji">'
         if alt:
             img_str = (u'<img src="{0}" alt="{1}" class="emoji" '
-                        + u'draggable="false">')
+                      + u'draggable="false">')
         else:
             alt = ' '.join(filename.split('_'))
 
