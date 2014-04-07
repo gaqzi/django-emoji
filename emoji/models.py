@@ -124,13 +124,13 @@ class Emoji(object):
         e = cls()
         output = []
 
-        def repl(m):
+        def replace_htmlentities_to_unicode(m):
             int_val = int(m.group(1))
             hex_val = hex(int_val)
             s = (r'\U' + hex_val.replace('0x','000')).decode('unicode-escape')
             return s
 
-        replacement_string = re.sub(r'&#([0-9]+);', repl, replacement_string)
+        replacement_string = re.sub(r'&#([0-9]+);', replace_htmlentities_to_unicode, replacement_string)
         prev = None
 
         for i, character in enumerate(replacement_string):
