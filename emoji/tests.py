@@ -49,7 +49,8 @@ class EmojiTest(TestCase):
     def test_replace_string_should_use_staticfiles_app(self):
         self.assertEqual(
             Emoji.replace(':+1:'),
-            '<img src="/static/emoji/img/%2B1.png" alt="+1" class="emoji">'
+            '<img src="/static/emoji/img/%2B1.png" alt="+1" '
+            'title="+1" class="emoji">'
         )
 
     def test_emojiinstance_from_app(self):
@@ -84,7 +85,7 @@ class EmojiTemplateTagTest(TestCase):
 
         self.assertEqual(res.status_code, 200)
         self.assertIn('<img src="/static/emoji/img/%2B1.png" '
-                      'alt="+1" class="emoji">', res.content)
+                      'alt="+1" title="+1" class="emoji">', res.content)
 
     def test_emoji_replace_unicode_tag(self):
         try:
@@ -93,9 +94,9 @@ class EmojiTemplateTagTest(TestCase):
             return
 
         self.assertEqual(res.status_code, 200)
-        self.assertIn((u'<img src="/static/emoji/img/kiss.png" '
-                      + u'alt="💋" class="emoji" '
-                      + u'draggable="false">'), res.content.decode('utf-8'))
+        self.assertIn(('<img src="/static/emoji/img/kiss.png" ' +
+                       'alt="💋" title="kiss" ' +
+                       'class="emoji">'), res.content.decode('utf-8'))
 
     def test_emoji_include_script(self):
         try:
@@ -154,5 +155,6 @@ class EmojiUnicodeTest(TestCase):
         emoji = '✌️'
         self.assertEqual(
             Emoji.replace_unicode(emoji),
-            '<img src="/static/emoji/img/v.png" alt="✌" class="emoji" draggable="false">'
+            '<img src="/static/emoji/img/v.png" alt="✌" '
+            'title="v" class="emoji">'
         )
