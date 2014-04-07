@@ -73,8 +73,11 @@ class Emoji(object):
     def _image_string(self, filename, alt=None):
         if not alt:
             alt = ' '.join(filename.split('_'))
-        return u'<img src="{0}" alt="{1}" class="emoji" draggable="false">'
-                    .format(self._static_url(filename), alt)
+        return u"""<img src="{0}" alt="{1}" class="emoji" 
+            draggable="false">""".format(
+            self._static_url(filename), 
+            alt
+        )
     
 
     @classmethod
@@ -130,7 +133,10 @@ class Emoji(object):
             if character in cls._unicode_modifiers:
                 continue
 
-            if ord(character) == 55357: # check character is lead part of wide unicode emoji like u'\U0001f004' 
+            """check character is lead part of 
+            wide unicode emoji like u'\U0001f004' 
+            """
+            if ord(character) == 55357: 
                 prev = character
                 continue
             
