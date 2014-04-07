@@ -70,11 +70,19 @@ class Emoji(object):
             '{0}/{1}.png'.format(self._static_path, name)
         )
 
-    def _image_string(self, filename):
-        return '<img src="{0}" alt="{1}" class="emoji">'.format(
-            self._static_url(filename),
-            ' '.join(filename.split('_'))
+    def _image_string(self, filename, alt=None):
+        img_str = u'<img src="{0}" alt="{1}" class="emoji">'
+        if alt:
+            img_str = (u'<img src="{0}" alt="{1}" class="emoji" '
+                      + u'draggable="false">')
+        else:
+            alt = ' '.join(filename.split('_'))
+
+        return img_str.format(
+            self._static_url(filename), 
+            alt
         )
+    
 
     @classmethod
     def names(cls):
@@ -116,13 +124,32 @@ class Emoji(object):
         e = cls()
         output = []
 
+        def repl(m):
+            int_val = int(m.group(1))
+            hex_val = hex(int_val)
+            s = (r'\U' + hex_val.replace('0x','000')).decode('unicode-escape')
+            return s
+
+        replacement_string = re.sub( r"&#([0-9]+);", repl, replacement_string)
+        prev = None
+
         for i, character in enumerate(replacement_string):
             if character in cls._unicode_modifiers:
                 continue
 
+            """check character is lead part of 
+            wide unicode emoji like u'\U0001f004' 
+            """
+            if ord(character) == 55357: 
+                prev = character
+                continue
+            
+            character = prev + character if prev else character
+            prev = None
+            
             name = e.name_for(character)
             if name:
-                character = e._image_string(name)
+                character = e._image_string(name, character)
 
             output.append(character)
 
