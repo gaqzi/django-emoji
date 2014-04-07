@@ -128,7 +128,7 @@ class Emoji(object):
             return s
 
         replacement_string = re.sub(r'&#([0-9]+);', replace_htmlentities_to_unicode, replacement_string)
-        prev = None
+        surrogate_character = None
 
         for i, character in enumerate(replacement_string):
             if character in cls._unicode_modifiers:
@@ -138,11 +138,11 @@ class Emoji(object):
             wide unicode emoji like u'\U0001f004' 
             """
             if ord(character) == 55357: 
-                prev = character
+                surrogate_character = character
                 continue
             
-            character = prev + character if prev else character
-            prev = None
+            character = surrogate_character + character if surrogate_character else character
+            surrogate_character = None
             
             name = e.name_for(character)
             if name:
