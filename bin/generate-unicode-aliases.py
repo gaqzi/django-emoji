@@ -2,12 +2,8 @@
 from pprint import pprint
 import os
 import sys
+import unicodedata
 
-# Trying to be python 2+3 compatible
-try:
-    unichr
-except NameError:
-    unichr = chr
 
 # These are mapped to very generic characters (0-9 for instance) and
 # shouldn't be replaced. Just skip them when adding
@@ -46,9 +42,9 @@ def _convert_to_unicode(string):
         if character in BLACKLIST_UNICODE:
             next
 
-        codepoints.append(unichr(
-            int('0x{0:0>8}'.format(character), 16)
-        ))
+        codepoints.append(
+            '\U{0:0>8}'.format(character).decode('unicode-escape')
+        )
 
     return codepoints
 

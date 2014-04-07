@@ -13,6 +13,20 @@ from . import settings
 __all__ = ('Emoji',)
 
 
+UNICODE_WIDE = True
+try:
+    unichr(0x0001f48b)
+except ValueError:
+    import unicodedata
+
+    UNICODE_WIDE = False
+    UNICODE_SURROGATE_MIN = 55296  # U+D800
+    UNICODE_SURROGATE_MAX = 57343  # U+DFFF
+
+    def convert_unicode_surrogates(surrogate_pair):
+        return unicodedata.normalize('NFKD', surrogate_pair)
+
+
 class Emoji(object):
     """Test if an emoji exists in the library and returns the URL to it.
     Also can add emojis to a text if they match the pattern :emoticon:.
@@ -124,7 +138,7 @@ class Emoji(object):
         """
         e = cls()
         output = []
-        prev = None
+        surrogate_character = None
 
         if settings.EMOJI_REPLACE_HTML_ENTITIES:
             replacement_string = cls.replace_html_entities(replacement_string)
@@ -133,15 +147,23 @@ class Emoji(object):
             if character in cls._unicode_modifiers:
                 continue
 
-            """check character is lead part of
-            wide unicode emoji like u'\U0001f004'
-            """
-            if ord(character) == 55357:
-                prev = character
+            # Check whether this is the first character in a Unicode
+            # surrogate pair when Python doesn't have wide Unicode
+            # support.
+            #
+            # Is there any reason to do this even if Python got wide
+            # support enabled?
+            if(not UNICODE_WIDE and not surrogate_character and
+               ord(character) >= UNICODE_SURROGATE_MIN and
+               ord(character) <= UNICODE_SURROGATE_MAX):
+                surrogate_character = character
                 continue
 
-            character = prev + character if prev else character
-            prev = None
+            if surrogate_character:
+                character = convert_unicode_surrogates(
+                    surrogate_character + character
+                )
+                surrogate_character = None
 
             name = e.name_for(character)
             if name:
@@ -167,25 +189,25 @@ class Emoji(object):
 
         """
         def _hex_to_unicode(hex_code):
-            return ('\U'+ hex_code.rjust(8, '0')).decode('unicode-escape')
+            return '\U{0:0>8}'.format(hex_code).decode('unicode-escape')
 
         def _replace_integer_entity(match):
             hex_val = hex(int(match.group(1)))
 
-            return _hex_to_unicode(hex_val.replace('0x',''))
+            return _hex_to_unicode(hex_val.replace('0x', ''))
 
         def _replace_hex_entity(match):
             return _hex_to_unicode(match.group(1))
 
         # replace integer code points, &#65;
         replacement_string = re.sub(
-            re._html_entities_integer_unicode_regex,
+            cls._html_entities_integer_unicode_regex,
             _replace_integer_entity,
             replacement_string
         )
         # replace hex code points, &#x41;
         replacement_string = re.sub(
-            self._html_entities_hex_unicode_regex,
+            cls._html_entities_hex_unicode_regex,
             _replace_hex_entity,
             replacement_string
         )

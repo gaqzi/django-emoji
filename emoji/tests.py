@@ -2,12 +2,13 @@
 
 from __future__ import unicode_literals
 import json
+from unittest import skipIf
 
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.test import TestCase
 
 from . import Emoji as EmojiInstance
-from .models import Emoji
+from .models import Emoji, UNICODE_WIDE
 
 # Anyone know how to mock out so os.listdir only lists what I want
 # instead of hitting the file system?
@@ -122,6 +123,7 @@ class UnicodeTestBase(TestCase):
     # :kiss: filename 1f48b.png, chosen 'cause it prints properly in terminal
     UNICODE_KISS = '\U0001f48b'
     UNICODE_KISS_CHARACTER = '💋'
+    UNICODE_KISS_SURROGATE_PAIR = '\ud83d\udc8b'
 
 
 class EmojiUnicodeTest(UnicodeTestBase):
@@ -160,6 +162,17 @@ class EmojiUnicodeTest(UnicodeTestBase):
             '<img src="/static/emoji/img/v.png" alt="✌" '
             'title="v" class="emoji">'
         )
+
+    @skipIf(UNICODE_WIDE, 'Python built with wide unicode support')
+    def test_can_convert_unicode_surrogate_pair_emoji(self):
+        """When in narrow mode the output characters might be a surrogate
+        pair, but that matches in string comparison with the wide
+        character.
+
+        """
+        res = Emoji.replace_unicode(self.UNICODE_KISS_SURROGATE_PAIR)
+        self.assertIn('\ud83d\udc8b', res)
+        self.assertIn('\U0001f48b', res)
 
 
 class EmojiHtmlEntitiesTest(UnicodeTestBase):
