@@ -130,7 +130,7 @@ class Emoji(object):
             if character in cls._unicode_modifiers:
                 continue
 
-            if ord(character) == 55357:
+            if ord(character) == 55357: # check character is lead part of wide unicode emoji like u'\U0001f004' 
                 prev = character
                 continue
             
