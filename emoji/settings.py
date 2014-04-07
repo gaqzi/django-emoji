@@ -7,3 +7,5 @@ EMOJI_IMG_TAG = getattr(settings, 'EMOJI_IMG_TAG', (
 ))
 
 EMOJI_ALT_AS_UNICODE = getattr(settings, 'EMOJI_ALT_AS_UNICODE', True)
+EMOJI_REPLACE_HTML_ENTITIES = getattr(settings, 'EMOJI_REPLACE_HTML_ENTITIES',
+                                      True)

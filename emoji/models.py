@@ -48,6 +48,10 @@ class Emoji(object):
     # anyway.
     _unicode_modifiers = (u'\ufe0e', u'\ufe0f')
 
+    # HTML entities regexs
+    _html_entities_integer_unicode_regex = re.compile(r'&#([0-9]+);')
+    _html_entities_hex_unicode_regex = re.compile(r'&#x([0-9a-f]+);', re.I)
+
     def __new__(cls, *args, **kwargs):
         if not cls._instance:
             cls._instance = super(Emoji, cls).__new__(cls, *args, **kwargs)
@@ -120,30 +124,25 @@ class Emoji(object):
         """
         e = cls()
         output = []
-
-        def repl(m):
-            int_val = int(m.group(1))
-            hex_val = hex(int_val)
-            s = (r'\U' + hex_val.replace('0x','000')).decode('unicode-escape')
-            return s
-
-        replacement_string = re.sub( r"&#([0-9]+);", repl, replacement_string)
         prev = None
+
+        if settings.EMOJI_REPLACE_HTML_ENTITIES:
+            replacement_string = cls.replace_html_entities(replacement_string)
 
         for i, character in enumerate(replacement_string):
             if character in cls._unicode_modifiers:
                 continue
 
-            """check character is lead part of 
-            wide unicode emoji like u'\U0001f004' 
+            """check character is lead part of
+            wide unicode emoji like u'\U0001f004'
             """
-            if ord(character) == 55357: 
+            if ord(character) == 55357:
                 prev = character
                 continue
-            
+
             character = prev + character if prev else character
             prev = None
-            
+
             name = e.name_for(character)
             if name:
                 character = e._image_string(name, alt=character)
@@ -158,3 +157,37 @@ class Emoji(object):
             character = character.replace(modifier, '')
 
         return cls._unicode_characters.get(character, False)
+
+    @classmethod
+    def replace_html_entities(cls, replacement_string):
+        """Replaces HTML escaped unicode entities with their unicode
+        equivalent. If the setting `EMOJI_REPLACE_HTML_ENTITIES` is
+        `True` then this conversation will always be done in
+        `replace_unicode` (default: True).
+
+        """
+        def _hex_to_unicode(hex_code):
+            return ('\U'+ hex_code.rjust(8, '0')).decode('unicode-escape')
+
+        def _replace_integer_entity(match):
+            hex_val = hex(int(match.group(1)))
+
+            return _hex_to_unicode(hex_val.replace('0x',''))
+
+        def _replace_hex_entity(match):
+            return _hex_to_unicode(match.group(1))
+
+        # replace integer code points, &#65;
+        replacement_string = re.sub(
+            re._html_entities_integer_unicode_regex,
+            _replace_integer_entity,
+            replacement_string
+        )
+        # replace hex code points, &#x41;
+        replacement_string = re.sub(
+            self._html_entities_hex_unicode_regex,
+            _replace_hex_entity,
+            replacement_string
+        )
+
+        return replacement_string

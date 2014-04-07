@@ -118,11 +118,13 @@ class EmojiTemplateTagTest(TestCase):
         self.assertTrue("Emoji.setDataUrl('/all.json').load();" in res.content)
 
 
-class EmojiUnicodeTest(TestCase):
+class UnicodeTestBase(TestCase):
     # :kiss: filename 1f48b.png, chosen 'cause it prints properly in terminal
     UNICODE_KISS = '\U0001f48b'
     UNICODE_KISS_CHARACTER = '💋'
 
+
+class EmojiUnicodeTest(UnicodeTestBase):
     def test_should_also_store_the_unicode_of_an_emoji(self):
         self.assertEqual(len(Emoji._unicode_characters), TOTAL_EMOJIS_UNICODE)
 
@@ -157,4 +159,28 @@ class EmojiUnicodeTest(TestCase):
             Emoji.replace_unicode(emoji),
             '<img src="/static/emoji/img/v.png" alt="✌" '
             'title="v" class="emoji">'
+        )
+
+
+class EmojiHtmlEntitiesTest(UnicodeTestBase):
+    INTEGER_KISS = '&#128139;'
+    HEX_KISS = '&#x0001f48b;'
+    HEX_KISS_SHORT = '&#x1f48b;'
+
+    def test_should_replace_integer_encoded_unicode(self):
+        self.assertEqual(
+            Emoji.replace_html_entities(self.INTEGER_KISS),
+            self.UNICODE_KISS
+        )
+
+    def test_should_replace_hex_encoded_unicode(self):
+        self.assertEqual(
+            Emoji.replace_html_entities(self.HEX_KISS),
+            self.UNICODE_KISS
+        )
+
+    def test_should_replace_short_hex_encoded_unicode(self):
+        self.assertEqual(
+            Emoji.replace_html_entities(self.HEX_KISS_SHORT),
+            self.UNICODE_KISS
         )
