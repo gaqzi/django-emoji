@@ -72,10 +72,7 @@ class Emoji(object):
 
     def _image_string(self, filename, alt=None):
         img_str = u'<img src="{0}" alt="{1}" class="emoji">'
-        if alt:
-            img_str = (u'<img src="{0}" alt="{1}" class="emoji" '
-                      + u'draggable="false">')
-        else:
+        if not alt:
             alt = ' '.join(filename.split('_'))
 
         return img_str.format(
