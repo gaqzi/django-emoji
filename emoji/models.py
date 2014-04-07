@@ -73,7 +73,10 @@ class Emoji(object):
     def _image_string(self, filename, alt=None):
         if not alt:
             alt = ' '.join(filename.split('_'))
-        return u'<img src="{0}" alt="{1}" class="emoji" draggable="false">'.format(self._static_url(filename),alt)
+        return u'<img src="{0}" alt="{1}" class="emoji" draggable="false">'.format(
+            self._static_url(filename), 
+            alt
+        )
     
 
     @classmethod
