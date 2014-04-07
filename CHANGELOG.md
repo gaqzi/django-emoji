@@ -1,3 +1,23 @@
+# v1.2 (yyyy-mm-dd)
+
+## features
+
+* `Emoji.replace_html_entities` replaces all unicode html entities
+  with their corresponding unicode character. This method is now by
+  default called before `Emoji.replace_unicode`. (@pistos2)
+* `Emoji.replace_unicode` will now set the `<img alt>` attribute to be
+  the unicode character being replaced. This change done to allow
+  marking and copying strings with emojis and the unicode character
+  being copied along correctly. (@pistos2)
+* Change the `<img>` tag to also have a title attribute that is the
+  text representation of the current character being encoded.
+* Added settings for new options:
+  - `EMOJI_ALT_AS_UNICODE`, default: `True`
+  - `EMOJI_REPLACE_HTML_ENTITIES`, default: `True`
+  - `EMOJI_IMG_TAG`, default: 
+       `<img src="{0}" alt="{1}" title="{2}" class="emoji">`
+  
+
 # v1.1 (2014-03-31)
 
 ## features
