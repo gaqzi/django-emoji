@@ -61,17 +61,17 @@ all the emjis and their unicode equivalents into memory.
                Call                                  Description
 ============================================= ===============================
 ``Emoji.names()``                             A list of all known emojis
-``Emoji.replace(replacement_string)``         Replaces all emojies between ``::``
+``Emoji.replace(replacement_string)``         Replaces all emojis between ``::``
 ``Emoji.name_for(character)``                 The name for a given unicode character
-``Emoji.replace_unicode(replacement_string)`` Replaces all known unicode emojies
+``Emoji.replace_unicode(replacement_string)`` Replaces all known unicode emojis
 ============================================= ===============================
 
 Javascript
 ----------
 
-The browser version caches all the emojies in ``localStorage`` so
+The browser version caches all the emojis in ``localStorage`` so
 there won't be that many roundtrips to the server just to get a list
-of the emojies.
+of the emojis.
 
 **NOTE**: Depends on jQuery or some other library that exports ``$.get``.
 
