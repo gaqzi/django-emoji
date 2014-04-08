@@ -1,0 +1,5 @@
+[run]
+source = emoji
+
+[report]
+omit = emoji/tests.py, emoji/_unicode_characters.py

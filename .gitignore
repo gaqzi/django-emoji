@@ -36,3 +36,5 @@ node_modules
 *.log
 
 bower_components
+.coverage
+htmlcov
