@@ -2,7 +2,6 @@
 
 from __future__ import unicode_literals
 import json
-from unittest import skipIf
 
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.test import TestCase
@@ -173,13 +172,17 @@ class EmojiUnicodeTest(UnicodeTestBase):
             'title="v" class="emoji">'
         )
 
-    @skipIf(UNICODE_WIDE, 'Python built with wide unicode support')
     def test_can_convert_unicode_surrogate_pair_emoji(self):
         """When in narrow mode the output characters might be a surrogate
         pair, but that matches in string comparison with the wide
         character.
 
         """
+        # Tests that only matter when running narrow, @skipIf not
+        # available in 2.6.
+        if UNICODE_WIDE:
+            return
+
         res = Emoji.replace_unicode(self.UNICODE_KISS_SURROGATE_PAIR)
         self.assertIn('\ud83d\udc8b', res)
         self.assertIn('\U0001f48b', res)
