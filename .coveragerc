@@ -3,3 +3,8 @@ source = emoji
 
 [report]
 omit = emoji/tests.py, emoji/_unicode_characters.py
+exclude_lines =
+              UNICODE_WIDE
+              except NoReverseMatch
+              except ImportError
+              pragma: no cover

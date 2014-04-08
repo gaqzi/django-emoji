@@ -16,7 +16,7 @@ __all__ = ('Emoji',)
 UNICODE_WIDE = True
 try:
     unichr(0x0001f48b)
-except ValueError:
+except ValueError:  # pragma: no cover
     import unicodedata
 
     UNICODE_WIDE = False
