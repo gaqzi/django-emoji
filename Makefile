@@ -6,7 +6,7 @@ BOWER=$(CURDIR)/node_modules/.bin/bower
 default: coverage
 
 test-py:
-	python test/runtests.py
+	coverage run test/runtests.py
 
 test-js: node_modules
 	$(KARMA) start test/karma.conf.js --single-run \

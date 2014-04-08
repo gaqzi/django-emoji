@@ -5,6 +5,9 @@ django-emoji
 .. image:: https://travis-ci.org/gaqzi/django-emoji.png?branch=master
            :target: https://travis-ci.org/gaqzi/django-emoji
 
+.. image:: https://coveralls.io/repos/gaqzi/django-emoji/badge.png
+           :target: https://coveralls.io/r/gaqzi/django-emoji
+
 .. image:: https://pypip.in/version/django-emoji/badge.png
     :target: https://pypi.python.org/pypi/django-emoji/
     :alt: Latest Version
