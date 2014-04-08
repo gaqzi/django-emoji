@@ -1,4 +1,4 @@
-# v1.2 (yyyy-mm-dd)
+# v1.2 (2014-04-09)
 
 ## features
 
