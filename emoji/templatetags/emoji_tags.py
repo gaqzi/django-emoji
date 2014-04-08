@@ -21,6 +21,12 @@ def emoji_replace_unicode(value):
     return mark_safe(Emoji.replace_unicode(value))
 
 
+@register.filter(name='emoji_replace_html_entities', is_safe=True)
+@stringfilter
+def emoji_replace_html_entities(value):
+    return mark_safe(Emoji.replace_html_entities(value))
+
+
 @register.simple_tag
 def emoji_load():
     try:

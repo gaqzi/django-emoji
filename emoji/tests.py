@@ -99,6 +99,16 @@ class EmojiTemplateTagTest(TestCase):
                        'alt="💋" title="kiss" ' +
                        'class="emoji">'), res.content.decode('utf-8'))
 
+    def test_emoji_replace_html_entities(self):
+        try:
+            res = self.client.get(reverse('emoji_replace_html_entities_test'))
+        except NoReverseMatch:
+            return
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.content.decode('utf-8'),
+                         '\n\U0001f48b\n\U0001f48b\n')
+
     def test_emoji_include_script(self):
         try:
             res = self.client.get(reverse('emoji_include_test'))

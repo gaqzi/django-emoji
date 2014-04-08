@@ -30,3 +30,16 @@ class EmojiTestReplcaceUnicodeTagView(TemplateView):
         context['emoji'] = u'\U0001f48b'
 
         return context
+
+
+class EmojiTestReplaceHtmlEntitiesView(TemplateView):
+    template_name = 'emoji_replace_html_entities.html'
+
+    def get_context_data(self, **kwargs):
+        context = (super(EmojiTestReplaceHtmlEntitiesView, self)
+                   .get_context_data(**kwargs))
+
+        context['emoji_integer'] = '&#128139;'
+        context['emoji_hex'] = '&#x0001f48b;'
+
+        return context
