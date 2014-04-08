@@ -44,6 +44,24 @@ Quick start
 
 4. Visit http://127.0.0.1:8000/emoji/all.json to get a json object with all emojis avilable
 
+Settings
+========
+
+These are settings that can be configured in your ``settings.py``:
+
+=============================== ========================================================
+        Settings name                 Description
+=============================== ========================================================
+``EMOJI_IMG_TAG``                The template string that is used for creating the <img>
+                                 tag when converting an emoji to an image. Default:
+                                 ``<img src="{0}" alt="{1}" title="{2}" class="emoji">``
+``EMOJI_ALT_AS_UNICODE``         Whether to put the unicode character that corresponds to
+                                 an emoji as the alt text in ``replace_unicode``.
+                                 Default: ``True``
+``EMOJI_REPLACE_HTML_ENTITIES``  Whether to automatically convert HTML encoded unicode
+                                 characters into emojis. Default: ``True``
+=============================== ========================================================
+
 Usage
 =====
 
@@ -57,14 +75,15 @@ The Python class ``Emoji`` is a singleton and will return the same
 instance between instantiations. On load Emoji will load the name of
 all the emjis and their unicode equivalents into memory.
 
-============================================= ===============================
+============================================= ==================================================
                Call                                  Description
-============================================= ===============================
-``Emoji.names()``                             A list of all known emojis
-``Emoji.replace(replacement_string)``         Replaces all emojis between ``::``
-``Emoji.name_for(character)``                 The name for a given unicode character
-``Emoji.replace_unicode(replacement_string)`` Replaces all known unicode emojis
-============================================= ===============================
+============================================= ==================================================
+``Emoji.names()``                                   A list of all known emojis
+``Emoji.replace(replacement_string)``               Replaces all emojis between ``::``
+``Emoji.name_for(character)``                       The name for a given unicode character
+``Emoji.replace_unicode(replacement_string)``       Replaces all known unicode emojis
+``Emoji.replace_html_entities(replacement_string)`` Replaces all HTML encoded unicode characters
+============================================= ==================================================
 
 Javascript
 ----------
@@ -93,6 +112,7 @@ Replace an emoji using Python templates by loading the tags in your template::
       {% load emoji_tags %}
       {{ blog_post.body|emoji_replace }}
       {{ blog_post.body|emoji_replace_unicode }}
+      {{ blog_post.body|emoji_replace_html_entities }}
 
 Replace emojis using Javascript (to for instance show a preview before the user saves what it is they are writing)::
 
@@ -142,10 +162,14 @@ Usage::
 
 **Note**:
 
-To be able to use the unicode replacements your Python version needs
-to be built with wide unicode character support. This seems to be the
-case for most Pythons available from package managers. If you do not
-have wide character support then an exception will be raised::
+For best use of the unicode replacements use a build of Python that
+was built with wide unicode character support. From version 1.2 there
+is code added for dealing with unicode surrogate pairs and it should
+work well on narrow builds. But this has not been production tested so
+try it out properly. Please report any bugs found.
+
+To test whether you got a narrow or wide build of Python run the
+following, if you get an exception it means you're running a narrow build.::
 
       >>> print(unichr(0x0001f48b))
       ValueError: unichr() arg not in range(0x10000) (narrow Python build)

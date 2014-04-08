@@ -16,6 +16,9 @@
   - `EMOJI_REPLACE_HTML_ENTITIES`, default: `True`
   - `EMOJI_IMG_TAG`, default: 
        `<img src="{0}" alt="{1}" title="{2}" class="emoji">`
+* Added support for running on a narrow unicode build of Python. 
+  The test suite passed on narrow builds but it has not been production
+  tested with a narrow build.
   
 
 # v1.1 (2014-03-31)
