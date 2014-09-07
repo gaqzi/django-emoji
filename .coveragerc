@@ -2,7 +2,7 @@
 source = emoji
 
 [report]
-omit = emoji/tests.py, emoji/_unicode_characters.py
+omit = emoji/tests.py, emoji/_*.py
 exclude_lines =
               UNICODE_WIDE
               except NoReverseMatch
