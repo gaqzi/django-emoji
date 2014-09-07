@@ -20,6 +20,9 @@ setup(
     install_requires=[
         'django',
     ],
+    test_requires=[
+        'django_nose',
+    ],
     classifiers=[
         'Environment :: Web Environment',
         'Framework :: Django',

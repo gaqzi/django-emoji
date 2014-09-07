@@ -1,16 +1,9 @@
 language: python
-python:
-  - "2.6"
-  - "2.7"
-env:
-  - DJANGO_VERSION=1.4.10
-  - DJANGO_VERSION=1.5.5
-  - DJANGO_VERSION=1.6
 # command to install dependencies
 install:
-  - pip install -q django==$DJANGO_VERSION
+  - pip install tox
   - pip install coveralls
   - pip install -q -r requirements.txt
 # command to run tests
-script: make test
+script: tox
 after_success: coveralls
