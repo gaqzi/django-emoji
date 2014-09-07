@@ -1,3 +1,4 @@
+
 ============
 django-emoji
 ============
@@ -46,6 +47,11 @@ Quick start
       url(r'^emoji/', include('emoji.urls')),
 
 4. Visit http://127.0.0.1:8000/emoji/all.json to get a json object with all emojis avilable
+
+Python versions
+===============
+
+Support for Django 1.4, 1.5, 1.6 and 1.7 with their respective versions of Python 2/3 support.
 
 Settings
 ========

@@ -1,3 +1,13 @@
+# v1.3 (2014-09-07)
+
+## features
+
+* Python 3 support
+* test suite is now being run through tox for for all supported
+  versions of Django and Python. 1.4 to 1.7 with their respective
+  versions of Python.
+
+
 # v1.2 (2014-04-09)
 
 ## features

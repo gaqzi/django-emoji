@@ -33,8 +33,20 @@ coverage-py-html:
 	coverage run test/runtests.py && \
 		coverage html --omit="admin.py,*.virtualenvs/*,./test/*"
 
-clean:
-	find . -name '*.pyc' | xargs rm -f
+clean-pyc:
+	find . -name '*.pyc' -exec rm -f {} +
+	find . -name '*.pyo' -exec rm -f {} +
+	find . -name '*~' -exec rm -f {} +
+
+clean-build:
+	rm -fr build/
+	rm -fr dist/
+	rm -fr *.egg-info
+
+clean: clean-pyc clean-build
 
 upload-package: test
-	python setup.py sdist upload
+	pip install twine wheel
+	python setup.py sdist
+	python setup.py bdist_wheel
+	twine upload dist/*

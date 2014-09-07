@@ -8,7 +8,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-emoji',
-    version='1.2.0',
+    version='1.3.0',
     packages=find_packages(exclude=('test',)),
     include_package_data=True,
     license='BSD License',
@@ -20,7 +20,7 @@ setup(
     install_requires=[
         'django',
     ],
-    test_requires=[
+    tests_require=[
         'django_nose',
     ],
     classifiers=[
