@@ -1,5 +1,7 @@
 import os
 import re
+import struct
+from sys import version_info
 
 from django.contrib.staticfiles.storage import staticfiles_storage
 
@@ -7,6 +9,7 @@ try:
     from ._unicode_characters import UNICODE_ALIAS
 except ImportError as exc:
     UNICODE_ALIAS = {}
+
 
 from . import settings
 
@@ -25,6 +28,14 @@ except ValueError:  # pragma: no cover
 
     def convert_unicode_surrogates(surrogate_pair):
         return unicodedata.normalize('NFKD', surrogate_pair)
+except NameError:
+    unichr = chr  # Python3 doesn't have unichr
+
+PYTHON3 = False
+if version_info[0] == 3:
+    PYTHON3 = True
+else:
+    from _python2 import hex_to_unicode
 
 
 class Emoji(object):
@@ -192,7 +203,12 @@ class Emoji(object):
 
         """
         def _hex_to_unicode(hex_code):
-            return '\U{0:0>8}'.format(hex_code).decode('unicode-escape')
+            if PYTHON3:
+                hex_code = '{0:0>8}'.format(hex_code)
+                as_int = struct.unpack('>i', bytes.fromhex(hex_code))[0]
+                return '{0:c}'.format(as_int)
+            else:
+                return hex_to_unicode(hex_code)
 
         def _replace_integer_entity(match):
             hex_val = hex(int(match.group(1)))

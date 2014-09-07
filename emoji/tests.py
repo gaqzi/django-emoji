@@ -71,7 +71,7 @@ class EmojiJSONListViewTest(TestCase):
         res = self.client.get(reverse('emoji:list.json'))
         self.assertEqual(res.status_code, 200)
 
-        items = json.loads(res.content)
+        items = json.loads(res.content.decode('utf8'))
         self.assertEqual(len(items), TOTAL_EMOJIS)
         self.assertEqual(items['+1'], '/static/emoji/img/%2B1.png')
 
@@ -85,7 +85,7 @@ class EmojiTemplateTagTest(TestCase):
 
         self.assertEqual(res.status_code, 200)
         self.assertIn('<img src="/static/emoji/img/%2B1.png" '
-                      'alt="+1" title="+1" class="emoji">', res.content)
+                      'alt="+1" title="+1" class="emoji">', str(res.content))
 
     def test_emoji_replace_unicode_tag(self):
         try:
@@ -116,7 +116,7 @@ class EmojiTemplateTagTest(TestCase):
 
         self.assertEqual(res.status_code, 200)
         body = res.content
-        self.assertTrue('/static/emoji/js/emoji.js' in body, 'emoji.js')
+        self.assertTrue('/static/emoji/js/emoji.js' in str(body), 'emoji.js')
 
     def test_emoji_load_tag(self):
         try:
@@ -125,7 +125,9 @@ class EmojiTemplateTagTest(TestCase):
             pass
 
         self.assertEqual(res.status_code, 200)
-        self.assertTrue("Emoji.setDataUrl('/all.json').load();" in res.content)
+        self.assertTrue(
+            "Emoji.setDataUrl('/all.json').load();" in str(res.content)
+        )
 
 
 class UnicodeTestBase(TestCase):
