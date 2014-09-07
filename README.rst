@@ -1,4 +1,3 @@
-
 ============
 django-emoji
 ============
@@ -10,12 +9,12 @@ django-emoji
            :target: https://coveralls.io/r/gaqzi/django-emoji
 
 .. image:: https://pypip.in/version/django-emoji/badge.png
-    :target: https://pypi.python.org/pypi/django-emoji/
-    :alt: Latest Version
+           :target: https://pypi.python.org/pypi/django-emoji/
+           :alt: Latest Version
 
 .. image:: https://pypip.in/download/django-emoji/badge.png
-    :target: https://pypi.python.org/pypi/django-emoji/
-    :alt: Downloads
+           :target: https://pypi.python.org/pypi/django-emoji/
+           :alt: Downloads
 
 Emoji is a port of the GitHub gem `gemoji`_ to Django.
 
@@ -29,11 +28,9 @@ This app got two main use cases:
 Quick start
 -----------
 
-1. Install `django-emoji`_ from PyPi::
+1. Install `django-emoji <https://pypi.python.org/pypi/django-emoji>` from PyPi::
 
       pip install django-emoji
-
-.. _django-emoji: https://pypi.python.org/pypi/django-emoji
 
 2. Add "emoji" to your INSTALLED_APPS setting like this::
 
@@ -84,15 +81,15 @@ The Python class ``Emoji`` is a singleton and will return the same
 instance between instantiations. On load Emoji will load the name of
 all the emjis and their unicode equivalents into memory.
 
-============================================= ==================================================
+=================================================== ============================================
                Call                                  Description
-============================================= ==================================================
+=================================================== ============================================
 ``Emoji.names()``                                   A list of all known emojis
 ``Emoji.replace(replacement_string)``               Replaces all emojis between ``::``
 ``Emoji.name_for(character)``                       The name for a given unicode character
 ``Emoji.replace_unicode(replacement_string)``       Replaces all known unicode emojis
 ``Emoji.replace_html_entities(replacement_string)`` Replaces all HTML encoded unicode characters
-============================================= ==================================================
+=================================================== ============================================
 
 Javascript
 ----------

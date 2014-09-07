@@ -45,7 +45,11 @@ clean-build:
 
 clean: clean-pyc clean-build
 
-upload-package: test
+lint-rst:
+	pip install restructuredtext_lint
+	rst-lint README.rst
+
+upload-package: test lint-rst
 	pip install twine wheel
 	python setup.py sdist
 	python setup.py bdist_wheel
