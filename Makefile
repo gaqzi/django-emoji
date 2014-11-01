@@ -49,7 +49,7 @@ lint-rst:
 	pip install restructuredtext_lint
 	rst-lint README.rst
 
-upload-package: test lint-rst
+upload-package: test lint-rst clean
 	pip install twine wheel
 	python setup.py sdist
 	python setup.py bdist_wheel
