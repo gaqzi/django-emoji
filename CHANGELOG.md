@@ -1,3 +1,13 @@
+# v2.0 (2014-11-01)
+
+## features
+
+* Enable autoescaping for filters. This functions the same way as
+  built-in Django filters work, which are enabled by default. Because
+  this has the potential to break current installations the major has
+  been bumped albeit being a small fix.
+
+
 # v1.3 (2014-09-07)
 
 ## features

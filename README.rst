@@ -25,6 +25,24 @@ This app got two main use cases:
 
 .. _gemoji: https://github.com/github/gemoji
 
+Version 2 release
+-----------------
+
+Thanks to `Tim Schilling`_ we now have `autoescaping`_ enabled with the
+same logic as core Django. Because this might be a breaking change for
+users of this app the major version has been bumped. Apart from the
+filters adds the standard XSS protection of Django there are no other
+changes.
+
+.. _Tim Schilling: https://github.com/tim-schilling
+.. _autoescaping: https://docs.djangoproject.com/en/dev/ref/templates/builtins/#std:templatefilter-escape
+
+To get the old behavior of the app wrap the filter like this:
+
+      {% autoescape off %}
+      {{ emoji|emoji_replace }}
+      {% endautoescape %}
+
 Quick start
 -----------
 
