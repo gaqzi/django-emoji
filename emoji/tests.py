@@ -129,6 +129,39 @@ class EmojiTemplateTagTest(TestCase):
             "Emoji.setDataUrl('/all.json').load();" in str(res.content)
         )
 
+    def test_xss_replace_html_entities(self):
+        try:
+            res = self.client.get(reverse('xss_fix'))
+        except NoReverseMatch:
+            pass
+
+        self.assertEqual(res.status_code, 200)
+        correct_string = ('&lt;em&gt;\U0001f48b&lt;/em&gt;\n'
+                          '&lt;em&gt;\U0001f48b&lt;/em&gt;')
+        self.assertIn(correct_string, res.content.decode('utf-8'))
+
+    def test_xss_replace_unicode(self):
+        try:
+            res = self.client.get(reverse('xss_fix'))
+        except NoReverseMatch:
+            pass
+
+        self.assertEqual(res.status_code, 200)
+        correct_string = ('&lt;em&gt;<img src="/static/emoji/img/shit.png" '
+                          'alt="💩" title="shit" class="emoji">&lt;em&gt;')
+        self.assertIn(correct_string, res.content.decode('utf-8'))
+
+    def test_xss_replace_emoji(self):
+        try:
+            res = self.client.get(reverse('xss_fix'))
+        except NoReverseMatch:
+            pass
+
+        self.assertEqual(res.status_code, 200)
+        correct_string = ('&lt;em&gt;<img src="/static/emoji/img/dog.png" '
+                          'alt="dog" title="dog" class="emoji">&lt;/em&gt;')
+        self.assertIn(correct_string, res.content.decode('utf-8'))
+
 
 class UnicodeTestBase(TestCase):
     # :kiss: filename 1f48b.png, chosen 'cause it prints properly in terminal

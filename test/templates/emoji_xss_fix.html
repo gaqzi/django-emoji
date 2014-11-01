@@ -1,0 +1,5 @@
+{% load emoji_tags %}
+{{ emoji_unicode|emoji_replace_unicode }}
+{{ emoji_integer|emoji_replace_html_entities }}
+{{ emoji_hex|emoji_replace_html_entities }}
+{{ emoji|emoji_replace }}

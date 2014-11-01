@@ -19,7 +19,8 @@ def emoji_replace(value, autoescape=None):
     return mark_safe(Emoji.replace(value))
 
 
-@register.filter(name='emoji_replace_unicode', is_safe=True, needs_autoescape=True)
+@register.filter(name='emoji_replace_unicode', is_safe=True,
+                 needs_autoescape=True)
 @stringfilter
 def emoji_replace_unicode(value, autoescape=None):
     autoescape = autoescape and not isinstance(value, SafeData)
@@ -32,10 +33,12 @@ def emoji_replace_unicode(value, autoescape=None):
                  is_safe=True, needs_autoescape=True)
 @stringfilter
 def emoji_replace_html_entities(value, autoescape=None):
+    # Replaced before because it needs unescaped &
+    value = Emoji.replace_html_entities(value)
     autoescape = autoescape and not isinstance(value, SafeData)
     if autoescape:
         value = escape(value)
-    return mark_safe(Emoji.replace_html_entities(value))
+    return mark_safe(value)
 
 
 @register.simple_tag

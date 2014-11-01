@@ -43,3 +43,18 @@ class EmojiTestReplaceHtmlEntitiesView(TemplateView):
         context['emoji_hex'] = '&#x0001f48b;'
 
         return context
+
+
+class EmojiTestXSSFix(TemplateView):
+    template_name = 'emoji_xss_fix.html'
+
+    def get_context_data(self, **kwargs):
+        context = (super(EmojiTestXSSFix, self)
+                   .get_context_data(**kwargs))
+
+        context['emoji_integer'] = '<em>&#128139;</em>'
+        context['emoji_hex'] = '<em>&#x0001f48b;</em>'
+        context['emoji_unicode'] = u'<em>\U0001f4a9<em>'
+        context['emoji'] = '<em>:dog:</em>'
+
+        return context

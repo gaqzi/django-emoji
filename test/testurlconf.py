@@ -5,6 +5,7 @@ from test.views import (
     EmojiTestReplaceTagView,
     EmojiTestReplcaceUnicodeTagView,
     EmojiTestReplaceHtmlEntitiesView,
+    EmojiTestXSSFix,
 )
 
 
@@ -17,6 +18,7 @@ urlpatterns = patterns(
     url(r'^replace-html-entities/$',
         EmojiTestReplaceHtmlEntitiesView.as_view(),
         name='emoji_replace_html_entities_test'),
+    url(r'^xss-fix/$', EmojiTestXSSFix.as_view(), name='xss_fix'),
     url(r'^emoji-include-test$',
         TemplateView.as_view(template_name='emoji_include_tag.html'),
         name='emoji_include_test'),
