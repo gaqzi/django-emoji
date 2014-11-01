@@ -37,7 +37,7 @@ changes.
 .. _Tim Schilling: https://github.com/tim-schilling
 .. _autoescaping: https://docs.djangoproject.com/en/dev/ref/templates/builtins/#std:templatefilter-escape
 
-To get the old behavior of the app wrap the filter like this:
+To get the old behavior of the app wrap the filter like this::
 
       {% autoescape off %}
       {{ emoji|emoji_replace }}
