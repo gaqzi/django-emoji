@@ -97,7 +97,7 @@ Python
 
 The Python class ``Emoji`` is a singleton and will return the same
 instance between instantiations. On load Emoji will load the name of
-all the emjis and their unicode equivalents into memory.
+all the emojis and their unicode equivalents into memory.
 
 =================================================== ============================================
                Call                                  Description
