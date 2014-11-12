@@ -26,7 +26,7 @@ class EmojiTest(TestCase):
         self.assertEqual(len(Emoji.names()), TOTAL_EMOJIS)
 
     def test_name_is_without_file_suffix(self):
-        first_file = Emoji.names()[0]
+        first_file = Emoji.names().keys()[0]
         self.assertTrue('.png' not in first_file)
 
     def test_in_should_work_when_looking_for_emoji(self):

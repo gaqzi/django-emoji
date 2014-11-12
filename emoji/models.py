@@ -65,7 +65,7 @@ class Emoji(object):
                                'static', 'emoji', 'img')
     _instance = None
     _pattern = re.compile(r':([a-z0-9\+\-_]+):', re.I)
-    _files = []
+    _files = {}
     _unicode_characters = UNICODE_ALIAS
 
     # This character acts as a modifier, if it's ever seen then remove
@@ -90,7 +90,7 @@ class Emoji(object):
         return value in self._files
 
     def keys(self):
-        return self._files
+        return self._files.keys()
 
     def __getitem__(self, item):
         if item in self._files:
@@ -98,7 +98,7 @@ class Emoji(object):
 
     def _static_url(self, name):
         return staticfiles_storage.url(
-            '{0}/{1}.png'.format(self._static_path, name)
+            '{0}/{1}'.format(self._static_path, self._files[name])
         )
 
     def _image_string(self, filename, alt=None):
@@ -112,12 +112,12 @@ class Emoji(object):
 
     @classmethod
     def names(cls):
-        """A list of all emoji names without file extension."""
+        """A dict of all emoji mapping names to filename."""
         if not cls._files:
             for f in os.listdir(cls._image_path):
                 if(not f.startswith('.') and
                    os.path.isfile(os.path.join(cls._image_path, f))):
-                    cls._files.append(os.path.splitext(f)[0])
+                    cls._files[os.path.splitext(f)[0]] = f
 
         return cls._files
 
