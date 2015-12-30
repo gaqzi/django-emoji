@@ -3,18 +3,26 @@ django-emoji
 ============
 
 .. image:: https://travis-ci.org/gaqzi/django-emoji.png?branch=master
-           :target: https://travis-ci.org/gaqzi/django-emoji
+   :target: https://travis-ci.org/gaqzi/django-emoji
 
 .. image:: https://coveralls.io/repos/gaqzi/django-emoji/badge.png
-           :target: https://coveralls.io/r/gaqzi/django-emoji
+   :target: https://coveralls.io/r/gaqzi/django-emoji
 
-.. image:: https://pypip.in/version/django-emoji/badge.png
-           :target: https://pypi.python.org/pypi/django-emoji/
-           :alt: Latest Version
+.. image:: https://img.shields.io/pypi/v/django-emoji.svg
+   :target: https://pypi.python.org/pypi/django-emoji/
+   :alt: Latest Version
 
-.. image:: https://pypip.in/download/django-emoji/badge.png
-           :target: https://pypi.python.org/pypi/django-emoji/
-           :alt: Downloads
+.. image:: https://img.shields.io/pypi/dm/django-emoji.svg
+   :target: https://pypi.python.org/pypi/django-emoji/
+   :alt: Downloads
+
+.. image:: https://img.shields.io/pypi/pyversions/django-emoji.svg
+   :target: https://pypi.python.org/pypi/django-emoji/
+   :alt: Python versions
+
+.. image:: https://img.shields.io/pypi/status/django-emoji.svg
+   :target: https://pypi.python.org/pypi/django-emoji/
+   :alt: Package status
 
 Emoji is a port of the GitHub gem `gemoji`_ to Django.
 
