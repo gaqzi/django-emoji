@@ -48,4 +48,4 @@ def emoji_load():
     except NoReverseMatch:
         return ''
     else:
-        return "Emoji.setDataUrl('{0}').load();".format(url)
+        return mark_safe("Emoji.setDataUrl('{0}').load();".format(url))
