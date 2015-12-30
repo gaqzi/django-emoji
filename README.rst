@@ -66,7 +66,7 @@ Quick start
 Python versions
 ===============
 
-Support for Django 1.4, 1.5, 1.6 and 1.7 with their respective versions of Python 2/3 support.
+Support for Django 1.5, 1.6 and 1.7 with their respective versions of Python 2/3 support.
 
 Settings
 ========
