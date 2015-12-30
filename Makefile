@@ -47,7 +47,7 @@ clean: clean-pyc clean-build
 
 lint-rst:
 	pip install restructuredtext_lint
-	rst-lint README.rst
+	LC_CTYPE='' rst-lint --encoding utf-8 README.rst
 
 upload-package: test lint-rst clean
 	pip install twine wheel
