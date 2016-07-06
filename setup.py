@@ -1,5 +1,6 @@
 # encoding: utf-8
 import os
+
 from setuptools import setup, find_packages
 
 readme_file = os.path.join(os.path.dirname(__file__), 'README.rst')
@@ -42,7 +43,6 @@ setup(
         'Topic :: Internet :: WWW/HTTP',
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
         'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',
