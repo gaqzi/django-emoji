@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from django.views.generic import TemplateView
 
 from test.views import (
@@ -8,9 +8,7 @@ from test.views import (
     EmojiTestXSSFix,
 )
 
-
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url(r'', include('emoji.urls', app_name='emoji', namespace='emoji')),
     url(r'^all$', EmojiTestReplaceTagView.as_view(), name='emoji_test_list'),
     url(r'^replace-unicode/$', EmojiTestReplcaceUnicodeTagView.as_view(),
@@ -25,4 +23,4 @@ urlpatterns = patterns(
     url(r'^emoji-load-test$',
         TemplateView.as_view(template_name='emoji_load_tag.html'),
         name='emoji_load_test'),
-)
+]
