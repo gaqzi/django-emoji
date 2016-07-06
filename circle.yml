@@ -3,6 +3,7 @@ dependencies:
   override:
     - pip install coveralls
     - pip install -q -r requirements.txt
+    - tox --notest
 
   cache_directories:
     - .tox/
