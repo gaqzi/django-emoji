@@ -1,5 +1,7 @@
 language: python
 # command to install dependencies
+node_js:
+  - "5.10"
 install:
   - pip install coveralls
   - pip install -q -r requirements.txt
