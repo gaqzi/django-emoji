@@ -60,9 +60,8 @@ class Emoji(object):
     '/static/emoji/dog.png'
 
     """
-    _static_path = 'emoji/img'
-    _image_path = os.path.join(os.path.dirname(__file__),
-                               'static', 'emoji', 'img')
+    _static_path = settings.EMOJI_STATIC_PATH
+    _image_path = settings.EMOJI_IMAGE_PATH
     _instance = None
     _pattern = re.compile(r':([a-z0-9\+\-_]+):', re.I)
     _files = []
