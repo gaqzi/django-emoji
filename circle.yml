@@ -3,10 +3,12 @@ dependencies:
   override:
     - pip install coveralls
     - pip install -q -r requirements.txt
+    - npm install
     - tox --notest
 
   cache_directories:
     - .tox/
+    - node_modules
 
 test:
   override:
