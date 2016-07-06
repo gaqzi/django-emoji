@@ -1,3 +1,13 @@
+# [v2.2 (2016-07-06)][release-2.2]
+
+## features
+
+* Support for Django 1.10 (beta but not expecting any breaking changes)
+
+# v2.1 (2015-12-30)
+
+* Support for Django 1.9
+
 # v2.0 (2014-11-01)
 
 ## features
@@ -52,3 +62,5 @@
 # v1.0 (2013-12-02)
 
 * Initial public release
+
+[release-2.2]: https://github.com/gaqzi/django-emoji/compare/v2.1.0...v2.2.0
