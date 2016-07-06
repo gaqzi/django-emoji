@@ -1,0 +1,14 @@
+---
+dependencies:
+  override:
+    - pip install coveralls
+    - pip install -q -r requirements.txt
+
+  cache_directories:
+    - .tox/
+
+test:
+  override:
+    - make test
+  post:
+    - coveralls
