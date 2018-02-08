@@ -1,7 +1,7 @@
-from django.conf.urls import url
+from django.urls import re_path
 
 from .views import EmojiJSONListView
 
 urlpatterns = [
-    url(r'^all.json$', EmojiJSONListView.as_view(), name='list.json'),
+    re_path(r'^all.json$', EmojiJSONListView.as_view(), name='list.json'),
 ]
