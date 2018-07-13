@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 import json
 
-from django.core.urlresolvers import reverse, NoReverseMatch
+from django.urls import reverse, NoReverseMatch
 from django.test import TestCase
 
 from . import Emoji as EmojiInstance
