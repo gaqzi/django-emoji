@@ -62,19 +62,19 @@ Quick start
 
       INSTALLED_APPS = (
           ...
-          'emoji',
+          'django_emoji',
       )
 
 3. Include the emoji URLconf in your project urls.py like this if you want to be able to get a JSON list of emojis::
 
-      url(r'^emoji/', include('emoji.urls')),
+      url(r'^emoji/', include('django_emoji.urls')),
 
 4. Visit http://127.0.0.1:8000/emoji/all.json to get a json object with all emojis avilable
 
 Python versions
 ===============
 
-Support for Django 1.5, 1.6, 1.7, 1.8 and 1.9 with their respective versions of Python 2/3 support.
+Support for Django 1.11 and 2.0 with their respective versions of Python 2/3 support.
 
 Settings
 ========
@@ -186,7 +186,7 @@ string with their image replacements.
 
 Usage::
 
-      >>> from emoji import Emoji
+      >>> from django_emoji import Emoji
       >>> Emoji.name_for(u'\U000148b')
       kiss
       >>> Emoji.replace_unicode(u'I send a \U0001f48b!')
