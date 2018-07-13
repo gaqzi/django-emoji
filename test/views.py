@@ -1,5 +1,5 @@
 from django.views.generic import TemplateView
-from emoji import Emoji
+from django_emoji import Emoji
 
 
 class EmojiTestReplaceTagView(TemplateView):
