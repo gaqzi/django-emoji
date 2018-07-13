@@ -1,5 +1,7 @@
 language: python
-# command to install dependencies
+python: 
+    - 3.6
+    - 2.7
 node_js:
   - "5.10"
 install:
