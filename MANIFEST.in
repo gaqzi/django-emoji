@@ -1,6 +1,6 @@
 include LICENSE
 include README.rst
 include CHANGELOG.md
-recursive-include emoji/static *
-recursive-include emoji/templates *
-prune emoji/static/emoji/img/unicode
+recursive-include django_emoji/static *
+recursive-include django_emoji/templates *
+prune django_emoji/static/emoji/img/unicode

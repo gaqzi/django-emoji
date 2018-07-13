@@ -22,7 +22,7 @@ settings.configure(
         'django.contrib.sessions',
         'django.contrib.admin',
         'django.contrib.staticfiles',
-        'emoji',
+        'django_emoji',
     ),
     MIDDLEWARE_CLASSES=(
         'django.middleware.common.CommonMiddleware',
@@ -62,6 +62,6 @@ if django.VERSION[0] == 1 and django.VERSION[1] >= 7:
 
 from django_nose import NoseTestSuiteRunner  # Can't be imported earlier
 test_runner = NoseTestSuiteRunner()
-failures = test_runner.run_tests(['emoji', ])
+failures = test_runner.run_tests(['django_emoji', ])
 if failures:
     sys.exit(failures)

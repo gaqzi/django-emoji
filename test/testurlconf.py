@@ -9,7 +9,7 @@ from test.views import (
 )
 
 urlpatterns = [
-    url(r'', include('emoji.urls', namespace='emoji')),
+    url(r'', include('django_emoji.urls', namespace='emoji')),
     url(r'^all$', EmojiTestReplaceTagView.as_view(), name='emoji_test_list'),
     url(r'^replace-unicode/$', EmojiTestReplcaceUnicodeTagView.as_view(),
         name='emoji_replace_unicode_test'),

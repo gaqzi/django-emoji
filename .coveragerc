@@ -1,5 +1,5 @@
 [run]
-source = emoji
+source = django_emoji
 
 [report]
 omit = emoji/tests.py, emoji/_*.py

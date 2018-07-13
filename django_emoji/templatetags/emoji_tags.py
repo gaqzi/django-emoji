@@ -5,7 +5,7 @@ from django.utils.safestring import mark_safe, SafeData
 from django.utils.html import escape
 
 
-from emoji import Emoji
+from django_emoji import Emoji
 
 register = template.Library()
 
