@@ -12,10 +12,6 @@ django-emoji
    :target: https://pypi.python.org/pypi/django-emoji/
    :alt: Latest Version
 
-.. image:: https://img.shields.io/pypi/dm/django-emoji.svg
-   :target: https://pypi.python.org/pypi/django-emoji/
-   :alt: Downloads
-
 .. image:: https://img.shields.io/pypi/pyversions/django-emoji.svg
    :target: https://pypi.python.org/pypi/django-emoji/
    :alt: Python versions
