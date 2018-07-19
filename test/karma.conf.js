@@ -21,7 +21,7 @@ module.exports = function (config) {
       'bower_components/jasmine-jquery/lib/jasmine-jquery.js',
       'bower_components/jasmine-ajax/lib/mock-ajax.js',
 
-      '../emoji/static/emoji/js/emoji.js',
+      '../django_emoji/static/emoji/js/emoji.js',
       'js/test-emoji.js'
     ],
 
