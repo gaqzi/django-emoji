@@ -5,7 +5,7 @@ python:
     - 3.4
     - 2.7
 node_js:
-  - "5.10"
+  - "8"
 install:
     - pip install tox-travis coveralls
     - npm ci
