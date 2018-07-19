@@ -10,6 +10,7 @@ matrix:
       before_script: 
         - "npm ci"
       language: node_js
+      node_js: "8"
       script: 
         - "tox -e js-test"
 python: 
