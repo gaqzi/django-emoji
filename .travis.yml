@@ -8,6 +8,7 @@ node_js:
   - "5.10"
 install:
     - pip install tox-travis coveralls
+    - npm ci
 # command to run tests
 script: tox
 after_success: coveralls
