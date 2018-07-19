@@ -9,5 +9,5 @@ node_js:
 install:
     - pip install tox-travis coveralls
 # command to run tests
-script: make test
+script: tox
 after_success: coveralls
