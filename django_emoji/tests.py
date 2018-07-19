@@ -6,6 +6,11 @@ import json
 from django.urls import reverse, NoReverseMatch
 from django.test import TestCase
 
+try:
+    import unittest.mock as mock
+except ImportError:
+    import mock
+
 from . import Emoji as EmojiInstance
 from .models import Emoji, UNICODE_WIDE
 
@@ -21,8 +26,8 @@ class EmojiTest(TestCase):
         e2 = Emoji()
 
         self.assertEqual(id(e), id(e2))
-
-    def test_get_all_names(self):
+    @mock.patch("os.listdir")
+    def test_get_all_names(self, patched_listdir):
         self.assertEqual(len(Emoji.names()), TOTAL_EMOJIS)
 
     def test_name_is_without_file_suffix(self):
