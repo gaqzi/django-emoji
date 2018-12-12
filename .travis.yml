@@ -10,8 +10,6 @@ matrix:
     - 
       before_script: 
         - "npm ci"
-      install: "python3 -m pip install tox-travis"
-      language: node_js
       node_js: "8"
       python: "3.6"
       script: 
