@@ -22,19 +22,21 @@ describe('Emoji', function() {
     var xhr, requests;
 
     beforeEach(function() {
+      jasmine.Ajax.install();
       Emoji.clear();
     });
-
+    afterEach(function() {
+      jasmine.Ajax.uninstall();
+    });
     it('should not raise objections loading an object', function() {
       Emoji.load(emojis);
     });
 
     it('should load from dataUrl if set and no data given', function() {
-      jasmine.Ajax.useMock();
 
       Emoji.setDataUrl('whatever').load();
-      var request = mostRecentAjaxRequest();
-      request.response({
+      var request = jasmine.Ajax.requests.mostRecent();
+      request.respondWith({
         status: 200,
         type: 'application/json',
         responseText: '{"horray": "horray.png"}'
