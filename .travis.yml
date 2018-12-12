@@ -1,14 +1,13 @@
 dist: xenial
 after_success: coveralls
-before_install: 
-  - "npm i -g npm"
 install: 
   - "pip install tox-travis coveralls"
 language: python
 matrix: 
   include: 
     - 
-      before_script: 
+      before_script:
+        - "npm i -g npm"
         - "npm ci"
         - "cd test && bower install"
       node_js: "8"
