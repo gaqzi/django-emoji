@@ -9,7 +9,7 @@ matrix:
       before_script:
         - "npm i -g npm"
         - "npm ci"
-        - "cd test && bower install"
+        - "cd test && ./node_modules/.bin/bower install"
       node_js: "8"
       python: "3.6"
       script: 
