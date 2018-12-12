@@ -1,3 +1,4 @@
+dist: xenial
 after_success: coveralls
 before_install: 
   - "npm i -g npm"
@@ -15,6 +16,7 @@ matrix:
       script: 
         - "tox -e js-test"
 python: 
+  - 3.7
   - 3.6
   - 3.5
   - 3.4
