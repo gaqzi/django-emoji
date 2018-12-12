@@ -3,7 +3,7 @@ after_success: coveralls
 before_install: 
   - "npm i -g npm"
 install: 
-  - "pip install tox-travis coveralls"
+  - "pip3 install tox-travis coveralls"
 language: python
 matrix: 
   include: 
