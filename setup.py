@@ -2,15 +2,16 @@
 import os
 from setuptools import setup, find_packages
 
+
 readme_file = os.path.join(os.path.dirname(__file__), 'README.rst')
 README = None
 try:
     f = open(readme_file, encoding='utf-8')
 except TypeError:
     f = open(readme_file)
-else:
-    README = f.read()
-    f.close()
+
+README = f.read()
+f.close()
 
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
