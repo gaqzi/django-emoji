@@ -2,6 +2,9 @@
 django-emoji
 ============
 
+.. image:: https://www.codeshelter.co/static/badges/badge-flat.svg
+    :target: www.codeshelter.co
+    
 .. image:: https://travis-ci.org/gaqzi/django-emoji.png?branch=master
    :target: https://travis-ci.org/gaqzi/django-emoji
 
