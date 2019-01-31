@@ -1,10 +1,13 @@
 language: python
-# command to install dependencies
+python: 
+    - 3.6
+    - 3.5
+    - 3.4
+    - 2.7
 node_js:
   - "5.10"
 install:
-  - pip install coveralls
-  - pip install -q -r requirements.txt
+    - pip install tox-travis coveralls
 # command to run tests
 script: make test
 after_success: coveralls
