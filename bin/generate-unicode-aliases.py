@@ -2,7 +2,6 @@
 from pprint import pprint
 import os
 import sys
-import unicodedata
 
 
 # These are mapped to very generic characters (0-9 for instance) and
@@ -43,7 +42,7 @@ def _convert_to_unicode(string):
             next
 
         codepoints.append(
-            '\U{0:0>8}'.format(character).decode('unicode-escape')
+            r'\U{0:0>8}'.format(character).decode('unicode-escape')
         )
 
     return codepoints
@@ -56,7 +55,7 @@ def create_list(image_path):
         name = os.path.splitext(f)[0]
 
         path = os.path.join(image_path, f)
-        if os.path.islink(path) and not name in BLACKLIST:
+        if os.path.islink(path) and name not in BLACKLIST:
             full_path = os.path.realpath(path)
             character = os.path.splitext(
                 os.path.basename(full_path)
@@ -71,8 +70,8 @@ def create_list(image_path):
 if __name__ == '__main__':
     emojis = create_list('emoji/static/emoji/img/')
     if emojis:
-        print '# This is an automatically generated file'
-        print '# flake8:noqa'
-        print ''
+        print('# This is an automatically generated file')
+        print('# flake8:noqa')
+        print('')
         sys.stdout.write('UNICODE_ALIAS = ')
         pprint(emojis, indent=4)
