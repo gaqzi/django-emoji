@@ -1,3 +1,5 @@
+import re
+
 from django import template
 from django.urls import reverse, NoReverseMatch
 from django.template.defaultfilters import stringfilter
@@ -49,3 +51,14 @@ def emoji_load():
         return ''
     else:
         return mark_safe("Emoji.setDataUrl('{0}').load();".format(url))
+
+
+@register.filter(name="emoji_strip", is_safe=True, needs_autoescape=True)
+@stringfilter
+def emoji_strip(value, autoescape=None):
+    autoescape = autoescape and not isinstance(value, SafeData)
+    if autoescape:
+        value = escape(value)
+    value = re.sub(r"(\:[\w]+\:)+", "", value)
+    value = value.strip()
+    return mark_safe(value)
